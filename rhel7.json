@@ -6,12 +6,12 @@
   "provisioners": [
     {
       "type": "shell",
-      "execute_command": "echo 'vagrant' | {{.Vars}} sudo -S -E '{{.Path}}'",
+      "execute_command": "echo 'vagrant' | {{ .Vars }} sudo -E -S '{{ .Path }}'",
       "inline": ["subscription-manager register --auto-attach --name=packer-rhel7-x86_64 --username={{ user `rhn_username` }} --password=\"{{ user `rhn_password` }}\""]
     },
     {
       "type": "shell",
-      "execute_command": "echo 'vagrant' | {{.Vars}} sudo -S -E bash '{{.Path}}'",
+      "execute_command": "echo 'vagrant' | {{ .Vars }} sudo -E -S bash -c '{{ .Path }}'",
       "script": "scripts/install-ansible.sh"
     },
     {
@@ -22,12 +22,12 @@
     },
     {
       "type": "shell",
-      "execute_command": "echo 'vagrant' | {{.Vars}} sudo -S -E '{{.Path}}'",
+      "execute_command": "echo 'vagrant' | {{ .Vars }} sudo -E -S '{{ .Path }}'",
       "inline": [ "/sbin/reboot", "sleep 60"]
     },
     {
       "type": "shell",
-      "execute_command": "echo 'vagrant' | {{.Vars}} sudo -S -E bash '{{.Path}}'",
+      "execute_command": "echo 'vagrant' | {{ .Vars }} sudo -E -S bash -c '{{ .Path }}'",
       "script": "scripts/cleanup.sh"
     }
   ],
@@ -42,17 +42,18 @@
       "guest_os_type": "RedHat_64",
       "headless": true,
       "http_directory": "http",
-      "iso_url": "iso/rhel-server-7.2-x86_64-dvd.iso",
-      "iso_checksum": "03f3a0291634335f6995534d829bd21ffaa0d000004dfeb1b2fb81052d64a4d5",
+      "iso_url": "iso/rhel-server-7.3-x86_64-dvd.iso",
+      "iso_checksum": "120acbca7b3d55465eb9f8ef53ad7365f2997d42d4f83d7cc285bf5c71e1131f",
       "iso_checksum_type": "sha256",
       "ssh_username": "vagrant",
       "ssh_password": "vagrant",
+      "ssh_timeout": "10m",
       "shutdown_command": "echo 'vagrant' | sudo -S shutdown -P now",
       "output_directory": "boxes",
       "vm_name": "packer-rhel7-x86_64",
       "vboxmanage": [
-        [ "modifyvm", "{{ .Name }}", "--memory", "1024" ],
-        [ "modifyvm", "{{ .Name }}", "--cpus", "2" ]
+        [ "modifyvm", "{{ .Name }}", "--memory", "512" ],
+        [ "modifyvm", "{{ .Name }}", "--cpus", "1" ]
       ]
     }
   ],
