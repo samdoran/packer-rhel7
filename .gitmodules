@@ -1,0 +1,3 @@
+[submodule "ansible/roles/packer-rhel"]
+	path = ansible/roles/packer-rhel
+	url = https://samdoran@github.com/samdoran/ansible-role-packer-rhel
