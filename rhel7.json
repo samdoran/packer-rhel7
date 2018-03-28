@@ -33,7 +33,7 @@
       "output_directory": "boxes",
       "shutdown_command": "echo 'vagrant' | sudo -S shutdown -P now",
       "ssh_password": "vagrant",
-      "ssh_timeout": "10m",
+      "ssh_timeout": "30m",
       "ssh_username": "vagrant",
       "type": "virtualbox-iso",
       "vboxmanage": [
