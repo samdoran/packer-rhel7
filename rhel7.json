@@ -1,4 +1,9 @@
 {
+  "variables": {
+    "vagrant_cloud_token": "{{ env `VAGRANT_CLOUD_TOKEN` }}",
+    "version": "{{ env `VAGRANT_BOX_VERSION` }}",
+    "version_description": "{{ env `VAGRANT_BOX_DESCRIPTION` }}"
+  },
   "provisioners": [
     {
       "type": "ansible",
@@ -54,9 +59,18 @@
     }
   ],
   "post-processors": [
-    {
-      "output": "builds/{{ .Provider }}-rhel7.box",
-      "type": "vagrant"
-    }
+    [
+      {
+        "output": "builds/{{ .Provider }}-rhel7.box",
+        "type": "vagrant"
+      },
+      {
+        "type": "vagrant-cloud",
+        "box_tag": "samdoran/rhel7",
+        "access_token": "{{ user `vagrant_cloud_token` }}",
+        "version": "{{ user `version` }}",
+        "version_description": "{{ user `version_description` }}"
+      }
+    ]
   ]
 }
